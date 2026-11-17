@@ -239,13 +239,15 @@ The AWS CLI may require a configured region and credentials. For this local simu
 
 ### Explore AWS resources using the Floci UI
 
-Floci provides a web interface for exploring the simulated AWS environment.
+Floci includes a web console for inspecting locally simulated AWS resources.
 
-**Floci UI:** [http://localhost:8080](http://localhost:8080)
+**Open the UI:** [http://localhost:4566/_floci/ui](http://localhost:4566/_floci/ui)
 
-After starting Floci, open the UI to inspect the local AWS services and resources, including S3 buckets, ECR repositories, and other provisioned infrastructure.
+The first visit automatically starts the Floci UI container and redirects to `http://localhost:4500` once it is ready.
 
-The UI is optional and is not required to deploy or test the application using PowerShell and the AWS CLI.
+You can use the console to inspect the S3 bucket, ECR repository, and other resources provisioned by Terraform.
+
+The UI is optional; the application can also be tested using the AWS CLI and Postman.
 
 ### 4. Verify Kubernetes
 
