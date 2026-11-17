@@ -85,29 +85,43 @@ cd S3Uploader
 
 All subsequent commands assume that you are running PowerShell from the repository root.
 
-### 2. Configure the local hostname
+### Configure the local hostname
 
-The application is accessed through:
+The application is exposed at:
 
-```text
-http://s3uploader.example.test
+`http://s3uploader.example.test`
+
+To access it, map the hostname to your local machine.
+
+**Windows**
+
+Open Notepad as Administrator and edit:
+
+`C:\Windows\System32\drivers\etc\hosts`
+
+**macOS / Linux**
+
+Open a terminal and run:
+
+```bash
+sudo nano /etc/hosts
 ```
 
-Add the following entry to the Windows hosts file:
+Add the following entry:
 
 ```text
 127.0.0.1 s3uploader.example.test
 ```
 
-The hosts file is located at:
+After deployment, verify access:
 
-```text
-C:\Windows\System32\drivers\etc\hosts
+```bash
+curl http://s3uploader.example.test/health
 ```
 
-Editing it requires administrator privileges.
+Expected response: `Healthy`.
 
-This entry is needed because the deployment script checks the application using the custom hostname.
+**Note:** Deployment automation has been tested on Windows. macOS and Linux require PowerShell 7, and additional Docker networking adjustments may be necessary.
 
 ### 3. Deploy the infrastructure and application
 
