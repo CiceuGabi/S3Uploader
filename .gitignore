@@ -1,0 +1,35 @@
+# .NET build output
+**/bin/
+**/obj/
+**/TestResults/
+
+# IDE and local settings
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+# Terraform local state and caches
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/*.tfplan
+**/crash.log
+**/crash.*.log
+**/*.tfvars
+**/*.tfvars.json
+!**/*.tfvars.example
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+**/.kube/
+*.pem
+*.key
+*.pfx
+
+# Operating system files
+.DS_Store
+Thumbs.db
