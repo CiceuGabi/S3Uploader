@@ -1,0 +1,22 @@
+services:
+  floci:
+    image: floci/floci:latest
+    container_name: floci
+    ports:
+      - "127.0.0.1:4566:4566"
+      - "127.0.0.1:80:80"
+    environment:
+      FLOCI_STORAGE_MODE: memory
+    command:
+      - /app/application
+      - -Dquarkus.http.host=0.0.0.0
+      - -Dfloci.security.allow-unsafe-network-exposure=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - floci-network
+
+networks:
+  floci-network:
+    name: floci-network
+    driver: bridge

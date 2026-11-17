@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s3uploader
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: s3uploader
+  template:
+    metadata:
+      labels:
+        app: s3uploader
+    spec:
+      containers:
+        - name: s3uploader
+          image: 000000000000.dkr.ecr.us-east-1.localhost:4566/s3uploader:dev
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: S3__Endpoint
+              value: "http://172.18.0.2:4566"
+            - name: S3__BucketName
+              value: "awesome-bucket"
+            - name: S3__Region
+              value: "us-east-1"
+            - name: S3__AccessKeyId
+              value: "test"
+            - name: S3__SecretAccessKey
+              value: "test"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: s3uploader
+spec:
+  type: NodePort
+  selector:
+    app: s3uploader
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+      nodePort: 32423
