@@ -1,0 +1,33 @@
+name: S3Uploader CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore S3Uploader/S3Uploader.csproj
+
+      - name: Build .NET application
+        run: dotnet build S3Uploader/S3Uploader.csproj --configuration Release --no-restore
+
+      - name: Build Docker image
+        run: docker build -t s3uploader:ci ./S3Uploader
